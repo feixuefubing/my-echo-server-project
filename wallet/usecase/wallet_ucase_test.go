@@ -1,8 +1,6 @@
 package usecase_test
 
 import (
-	"fmt"
-	"github.com/ethereum/go-ethereum/rpc"
 	"my-echo-server-project/domain"
 	"my-echo-server-project/wallet/usecase"
 	"my-echo-server-project/wallet/util"
@@ -15,14 +13,17 @@ var (
 )
 
 func TestMain(m *testing.M) {
-	//获取geth rpc客户端
-	client, _ := rpc.Dial("http://localhost:8545")
-	if client == nil {
-		fmt.Println("rpc.Dial err")
-		panic("连接geth节点错误")
-		return
-	}
-	ucase = usecase.NewWalletUsecase(client)
+	//切换不同实现
+	ucase = usecase.NewWalletUsecaseOffline()
+
+	////获取geth rpc客户端
+	//client, _ := rpc.Dial("http://localhost:8545")
+	//if client == nil {
+	//	fmt.Println("rpc.Dial err")
+	//	panic("连接geth节点错误")
+	//	return
+	//}
+	//ucase = usecase.NewWalletUsecase(client)
 	os.Exit(m.Run())
 }
 
